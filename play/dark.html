@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  padding: 25px;
+  background-color: white;
+  color: black;
+  font-size: 25px;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+.sun-mode {
+  //background-color: black;
+  color: orange;
+}
+.green-mode {
+  //background-color: black;
+  color: green;
+}
+</style>
+</head>
+<body>
+
+<h2>Toggle Dark/Light Mode</h2>
+<p>Click the button to toggle between dark and light mode for this page.</p>
+
+<button onclick="myFunction()">Toggle dark mode</button>
+<button onclick="myFunction2()">Toggle dark mode</button>
+<button onclick="myFunction3()">Toggle dark mode</button>
+<button onclick="myStyle()">Try it</button>
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+function myFunction2() {
+   var element = document.body;
+   element.classList.toggle("sun-mode");
+//document.body.classList.add("sun-mode");
+document.body.classList.remove("green-mode");
+//document.body.style.color="orange";
+//document.body.className = ' sun-mode';
+}
+function myFunction3() {
+   var element = document.body;
+   element.classList.toggle("green-mode");
+document.body.classList.remove("sun-mode");
+//document.body.classList.add("green-mode");
+//document.body.style.color="green";
+//document.body.className = ' green-mode';
+}
+function myStyle() {
+  document.body.classList.add("dark-mode");
+  document.body.classList.add("sun-mode");
+  document.body.classList.add("green-mode");
+}
+</script>
+
+</body>
+</html>
 
