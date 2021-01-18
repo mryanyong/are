@@ -1,0 +1,154 @@
+    <div id=scr></div>
+	<div class="jumbotron" style="margin-top:20px;padding:20px;">    
+        <p><span id="errorMsg"></span></p>    
+        <div class="row">    
+            <div class="col-lg-6">    
+                <!-- Here we streaming video from webcam -->    
+                <h4>    
+                    Video coming from Webcam  <button class="btn btn-primary" id="btnCapture">Capture to Canvas >></button>    
+                </h4>    
+                <video id="video" playsinline autoplay></video>    
+            </div>    
+        <div id=disp></div>
+            <div class="col-lg-6">    
+                <h4>    
+                    Captured image from Webcam <input type="button" class="btn btn-primary" id="btnSave" name="btnSave" value="Save the canvas(image) to server" />    
+                </h4>    
+                <!-- Webcam video snapshot -->    
+				
+                <canvas style="border:solid 1px #ddd;background-color:white;" id="canvas" width="640" height="340"></canvas>    
+				
+            </div>    
+        </div>    
+    </div>    
+
+<script>
+
+elemm=document.getElementById('btnCapture');
+elemm.onclick = function() { 
+ var canvas = document.getElementById('canvas');  
+ canvas.style.display="block";
+        var context = canvas.getContext('2d');  
+  
+        // Capture the image into canvas from Webcam streaming Video element  
+		elemm0=document.getElementById('disp');
+        context.drawImage(video, 0, 0);  
+ 		var dataURL  = canvas.toDataURL("image/png");
+	//	var dataURL = destinationCanvas.toDataURL("image/png");
+		b='<img src="'+dataURL +'">';
+	//document.write(b);	
+ elemm0.innerHTML=b; 
+ elemm0.img.width="200px";
+ };
+ 
+ 
+elemm2=document.getElementById('btnSave'); 
+elemm2.onclick = function() {
+document.getElementById("disp").innerHTML ="b";
+ var destinationCanvas = document.createElement("canvas");  
+        var destCtx = destinationCanvas.getContext('2d');  
+  
+  
+        destinationCanvas.height = 340;  
+        destinationCanvas.width = 640;  
+  	//	var dataURL = destinationCanvas.toDataURL("image/png");
+
+        destCtx.translate(video.videoWidth, 0);  
+        destCtx.scale(-1, 1);  
+        destCtx.drawImage(document.getElementById("canvas"), 0, 0);  
+  //var dataURL = destinationCanvas.toDataURL("image/png");
+        // Get base64 data to send to server for upload  
+        var imagebase64data = destinationCanvas.toDataURL("image/png");  
+		a=imagebase64data;
+		var dataURL = destinationCanvas.toDataURL("image/png");
+		b='<img src="'+a +'">';
+	//document.write(b);
+		
+		document.getElementById("scr").innerHTML =b;
+		
+        imagebase64data = imagebase64data.replace('data:image/png;base64,', '');   
+		//var flickr = {'action': 'Flickr', 'get':'getPublicPhotos'};
+		
+		 var canvas = document.getElementById('canvas');  
+		   document.getElementById('disp').height = "100";
+       var destCtx = destinationCanvas.getContext('2d');  
+  
+  
+        destinationCanvas.height = 40;  
+        destinationCanvas.width = 640;  
+		//canvas.style.display="none";
+ var http = new XMLHttpRequest();
+	var url = "https://t.kunok.com/wcsave.php";
+	//var params = "fname=jo.png&"data=ipsum&name=binny";
+	var params = "finame=jo.jpg&act=add&data="+dataURL;
+	http.open("POST", url, true);
+	//Send the proper header information along with the request
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	//http.overrideMimeType('text/plain; charset=x-user-defined');
+	http.setRequestHeader("Content-length", params.length);
+	http.setRequestHeader("Connection", "close");
+	http.onreadystatechange = function() {//Call a function when the state changes.
+	if(http.readyState == 4 && http.status == 200) {
+		document.getElementById("scr").innerHTML = http.responseText;
+		}
+	}
+	http.send(params);
+		document.getElementById("scr").innerHTML ="done";
+}
+ </script>
+ 	<script type="text/javascript">  
+    var video = document.querySelector("#video");  
+  
+    // Basic settings for the video to get from Webcam  
+    const constraints = {  
+        audio: false,  
+        video: {  
+            width: 800, height: 500  
+        }  
+    };  
+  
+    // This condition will ask permission to user for Webcam access  
+    if (navigator.mediaDevices.getUserMedia) {  
+        navigator.mediaDevices.getUserMedia(constraints)  
+            .then(function (stream) {  
+                video.srcObject = stream;  
+            })  
+            .catch(function (err0r) {  
+                console.log("Something went wrong!");  
+            });  
+    }  
+  
+    function stop(e) {  
+        var stream = video.srcObject;  
+        var tracks = stream.getTracks();  
+  
+        for (var i = 0; i < tracks.length; i++) {  
+            var track = tracks[i];  
+            track.stop();  
+        }  
+        video.srcObject = null;  
+    }  
+</script>  
+<style type="text/css">  
+    /* Flipping the video as it was not mirror view */  
+    video {  
+        -webkit-transform: scaleX(-1);  
+        transform: scaleX(-1);  
+        margin-top: 5px;  
+    }  
+  
+    /* Flipping the canvas image as it was not mirror view */  
+    #canvas {  
+        -moz-transform: scaleX(-1);  
+        -o-transform: scaleX(-1);  
+        -webkit-transform: scaleX(-1);  
+        transform: scaleX(-1);  
+        filter: FlipH;  
+        -ms-filter: "FlipH";  
+    }  
+	#disp {
+	background-color:red;
+	height:100px;
+	width:50px;
+	}
+</style> 
