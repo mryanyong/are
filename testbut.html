@@ -1,5 +1,17 @@
-    <a href=https://t.kunok.com/jo.png>See</a>
-	<div id=scr></div>
+<style>
+#disp {
+  width:159px;
+    margin:auto; 
+    height:80px; 
+    background:red; 
+    //overflow:auto;
+}
+#disp img{
+width:150px;
+}
+</style>
+	<a href=https://t.kunok.com/jo.png>See</a>
+	<div id=scr>test</div>
 	<div class="jumbotron" style="margin-top:20px;padding:20px;">    
         <p><span id="errorMsg"></span></p>    
         <div class="row">    
@@ -10,7 +22,7 @@
                 </h4>    
                 <video id="video" playsinline autoplay></video>    
             </div>    
-        <div id=disp></div>
+        <div id=disp>XX</div>
             <div class="col-lg-6">    
                 <h4>    
                     Captured image from Webcam <input type="button" class="btn btn-primary" id="btnSave" name="btnSave" value="Save the canvas(image) to server" />    
@@ -34,18 +46,21 @@ elemm.onclick = function() {
         // Capture the image into canvas from Webcam streaming Video element  
 		elemm0=document.getElementById('disp');
         context.drawImage(video, 0, 0);  
- 		var dataURL  = canvas.toDataURL("image/png");
+		context.translate(video.videoWidth, 0);  
+        //context.scale(-1, 1);  
+        context.drawImage(document.getElementById("canvas"), 0, 0);  
+ 		var dataURL0  = canvas.toDataURL("image/png");
 	//	var dataURL = destinationCanvas.toDataURL("image/png");
-		b='<img src="'+dataURL +'">';
+		Bb='<img src="'+dataURL10 +'">';
 	//document.write(b);	
- elemm0.innerHTML=b; 
+ elemm0.innerHTML=Bb ;
  elemm0.img.width="200px";
  };
  
  
 elemm2=document.getElementById('btnSave'); 
 elemm2.onclick = function() {
-document.getElementById("disp").innerHTML ="b";
+
  var destinationCanvas = document.createElement("canvas");  
         var destCtx = destinationCanvas.getContext('2d');  
   
@@ -57,15 +72,15 @@ document.getElementById("disp").innerHTML ="b";
         destCtx.translate(video.videoWidth, 0);  
         destCtx.scale(-1, 1);  
         destCtx.drawImage(document.getElementById("canvas"), 0, 0);  
-  //var dataURL = destinationCanvas.toDataURL("image/png");
+ // var dataURL = destinationCanvas.toDataURL("image/png");
         // Get base64 data to send to server for upload  
         var imagebase64data = destinationCanvas.toDataURL("image/png");  
 		a=imagebase64data;
 		var dataURL = destinationCanvas.toDataURL("image/png");
-		b='<img src="'+a +'">';
+		ab='<img src="'+a +'">';
 	//document.write(b);
-		
-		document.getElementById("scr").innerHTML =b;
+		document.getElementById("disp").innerHTML =ab;
+		document.getElementById("scr").innerHTML =ab;
 		
         imagebase64data = imagebase64data.replace('data:image/png;base64,', '');   
 		//var flickr = {'action': 'Flickr', 'get':'getPublicPhotos'};
@@ -147,9 +162,5 @@ document.getElementById("disp").innerHTML ="b";
         filter: FlipH;  
         -ms-filter: "FlipH";  
     }  
-	#disp {
-	background-color:red;
-	height:100px;
-	width:50px;
-	}
+
 </style> 
