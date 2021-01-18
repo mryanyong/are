@@ -1,10 +1,10 @@
 <style>
 #disp {
-  width:159px;
+  width:180px;
     margin:auto; 
-    height:80px; 
+    height:180px; 
     background:red; 
-    //overflow:auto;
+    overflow:auto;
 }
 #disp img{
 width:150px;
@@ -46,9 +46,9 @@ elemm.onclick = function() {
         // Capture the image into canvas from Webcam streaming Video element  
 		elemm0=document.getElementById('disp');
         context.drawImage(video, 0, 0);  
-		context.translate(video.videoWidth, 0);  
+		//context.translate(video.videoWidth, 0);  
         //context.scale(-1, 1);  
-        context.drawImage(document.getElementById("canvas"), 0, 0);  
+        //context.drawImage(document.getElementById("canvas"), 0, 0);  
  		var dataURL0  = canvas.toDataURL("image/png");
 	//	var dataURL = destinationCanvas.toDataURL("image/png");
 		Bb='<img src="'+dataURL10 +'">';
@@ -60,7 +60,7 @@ elemm.onclick = function() {
  
 elemm2=document.getElementById('btnSave'); 
 elemm2.onclick = function() {
-
+document.getElementById("disp").innerHTML ="b";
  var destinationCanvas = document.createElement("canvas");  
         var destCtx = destinationCanvas.getContext('2d');  
   
@@ -79,7 +79,7 @@ elemm2.onclick = function() {
 		var dataURL = destinationCanvas.toDataURL("image/png");
 		ab='<img src="'+a +'">';
 	//document.write(b);
-		document.getElementById("disp").innerHTML =ab;
+		
 		document.getElementById("scr").innerHTML =ab;
 		
         imagebase64data = imagebase64data.replace('data:image/png;base64,', '');   
@@ -93,6 +93,8 @@ elemm2.onclick = function() {
         destinationCanvas.height = 40;  
         destinationCanvas.width = 640;  
 		//canvas.style.display="none";
+		zb='<img src="'+dataURL +'">';
+		document.getElementById("disp").innerHTML =zb;
  var http = new XMLHttpRequest();
 	var url = "https://t.kunok.com/wcsave.php";
 	//var params = "fname=jo.png&"data=ipsum&name=binny";
